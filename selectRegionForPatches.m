@@ -8,7 +8,6 @@ imgH = plotImgBlocks( img, [], patchSize );
 % Mark Region
 roiH = imfreehand;
 positionList = getPosition( roiH );
-positionList = fliplr( positionList ); % (x,y) -> (rows,cols)
 delete( roiH );
 polyH = impoly(gca, positionList);
 setVerticesDraggable( polyH, logical(0) );
@@ -16,11 +15,14 @@ polyF = makeConstrainToRectFcn('impoly',[ min(positionList(:,1)) max(positionLis
 setPositionConstraintFcn( polyH, polyF );
 % disp( positionList );
 
+positionList = fliplr( positionList ); % (x,y) -> (rows,cols)
+
 % Get Grid of selected patches
 
 % Get Boundary
 gridBoundary = ceil( positionList ./ ( ones( size( positionList, 1 ), 1 ) * patchSize ) );
 gridBoundary = unique( gridBoundary, 'rows' );
+fprintf( 'Co-ordinates of grid cells on boundary:\n' );
 disp( gridBoundary );
 
 % Get Bounding Box

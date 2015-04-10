@@ -77,6 +77,12 @@ function savePatches( imgName, imgBlocks, patchList )
     mkdir( dirName );
     cd( dirName );
     
+    % Save Image with Grid
+    saveas( imgH, sprintf( '%s__%d_%d.jpg', dirName, patchSize(1), patchSize(2) ) );
+    
+    % Save patchList
+    csvwrite( sprintf( '%s__%d_%d.csv', dirName, patchSize(1), patchSize(2) ), patchList );
+    
     for i = 1 : size(patchList,1)
         blockName = sprintf( '%s__%d_%d.jpg', dirName, patchList(i,1), patchList(i,2) );
         imwrite( imgBlocks{patchList(i,1),patchList(i,2)}, blockName, 'jpg' );
